@@ -1,7 +1,11 @@
-import Header from '../components/Header';
+import { Text, View } from 'react-native';
 
 function Home() {
-  return <Header />;
+  return (
+    <View>
+      <Text style={{ color: 'white' }}>Home screen</Text>
+    </View>
+  );
 }
 
 export default Home;
