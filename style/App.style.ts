@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const AppStyle = StyleSheet.create({
-  container: {},
+  textColor: {
+    color: '#fff',
+  },
 });
 
 export default AppStyle;
