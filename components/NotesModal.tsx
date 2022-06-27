@@ -64,9 +64,10 @@ function NotesModal({
   };
 
   const onCancel = () => {
-    setModalOpen(false);
+    setEditId('');
     setTitle('');
     setNote('');
+    setModalOpen(false);
   };
 
   return (
