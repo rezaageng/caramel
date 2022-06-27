@@ -1,8 +1,9 @@
 import { Text, View } from 'react-native';
 import AppStyle from '../style/App.style';
 import NotesListStyle from '../style/NotesList.style';
+import { NotesListProps } from '../types/notes';
 
-function NotesList() {
+function NotesList({ title, note, date }: NotesListProps) {
   return (
     <View style={NotesListStyle.wrapper}>
       <Text
@@ -12,19 +13,16 @@ function NotesList() {
           ...NotesListStyle.child,
         }}
       >
-        NotesList
+        {title}
       </Text>
       <Text
         style={{ ...AppStyle.textColor, ...NotesListStyle.child }}
         numberOfLines={1}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        accusamus quae, voluptas provident eius neque necessitatibus totam
-        deleniti vitae quod eligendi sunt ut porro voluptatum dolor laboriosam
-        nemo odit esse!
+        {note}
       </Text>
       <Text style={{ ...AppStyle.textColor, ...NotesListStyle.child }}>
-        8 April 2022
+        {date}
       </Text>
     </View>
   );

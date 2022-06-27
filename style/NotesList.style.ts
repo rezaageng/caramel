@@ -5,6 +5,7 @@ const NotesListStyle = StyleSheet.create({
     backgroundColor: '#242424',
     padding: 16,
     borderRadius: 16,
+    marginBottom: 16,
   },
   title: {
     fontWeight: 'bold',
