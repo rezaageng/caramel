@@ -12,6 +12,8 @@ function Header({ setModalOpen }: IProps) {
     <View style={HeaderStyle.wrapper}>
       <Pressable
         style={HeaderStyle.pressable}
+        android_ripple={{ color: '#ff369e', radius: 20 }}
+        android_disableSound
         onPress={() => setModalOpen(true)}
       >
         <AntDesign name="plus" size={16} color="white" />

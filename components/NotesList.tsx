@@ -23,6 +23,8 @@ function NotesList({
   return (
     <Pressable
       style={NotesListStyle.wrapper}
+      android_ripple={{ color: '#3d3d3d', radius: 170 }}
+      android_disableSound
       onLongPress={() => deleteNote(id)}
       onPress={() => {
         setEditId(id);

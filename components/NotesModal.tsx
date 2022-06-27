@@ -70,7 +70,7 @@ function NotesModal({
   };
 
   return (
-    <Modal transparent visible={modalOpen}>
+    <Modal transparent visible={modalOpen} animationType="slide">
       <View style={NotesModalStyle.modal}>
         <View style={NotesModalStyle.wrapper}>
           <View style={NotesModalStyle.inputWrapper}>
@@ -96,6 +96,7 @@ function NotesModal({
           </View>
           <View style={NotesModalStyle.buttonWrapper}>
             <Pressable
+              android_disableSound
               style={{
                 ...NotesModalStyle.button,
                 ...NotesModalStyle.cancelButton,
@@ -105,6 +106,7 @@ function NotesModal({
               <Text style={AppStyle.textColor}>Cancel</Text>
             </Pressable>
             <Pressable
+              android_disableSound
               style={
                 buttonDisabled
                   ? {
