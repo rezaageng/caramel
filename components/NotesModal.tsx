@@ -24,6 +24,7 @@ function NotesModal({ modalOpen, setModalOpen, setNotes }: IProps) {
     setNotes((prevNotes) => [
       ...prevNotes,
       {
+        id: `note${(Math.random() * 1000).toFixed(0)}`,
         title: title || 'Untitled',
         note,
         date: new Date().toLocaleDateString(),

@@ -12,6 +12,10 @@ function Home() {
   const [notes, setNotes] = useState<NotesListProps[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const deleteNote = (id: string) => {
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+  };
+
   console.log(notes);
 
   return (
@@ -24,15 +28,18 @@ function Home() {
       <Header setModalOpen={setModalOpen} />
       <ScrollView>
         {notes.length > 0 ? (
-          notes.reverse().map((note, i) => (
-            <NotesList
-              // eslint-disable-next-line react/no-array-index-key
-              key={`notes${i}`}
-              title={note.title}
-              note={note.note}
-              date={note.date}
-            />
-          ))
+          notes
+            .reverse()
+            .map((note) => (
+              <NotesList
+                key={note.id}
+                id={note.id}
+                title={note.title}
+                note={note.note}
+                date={note.date}
+                deleteNote={deleteNote}
+              />
+            ))
         ) : (
           <Nothing />
         )}
