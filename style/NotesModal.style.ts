@@ -39,6 +39,9 @@ const NotesModalStyle = StyleSheet.create({
   saveButton: {
     backgroundColor: '#4338ca',
   },
+  saveButtonDisabled: {
+    backgroundColor: '#6366f1',
+  },
 });
 
 export default NotesModalStyle;

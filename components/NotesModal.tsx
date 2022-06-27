@@ -1,6 +1,4 @@
-// eslint-disable-next-line object-curly-newline
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-// eslint-disable-next-line object-curly-newline
 import { Modal, Pressable, Text, TextInput, View } from 'react-native';
 import AppStyle from '../style/App.style';
 import NotesModalStyle from '../style/NotesModal.style';
@@ -76,10 +74,17 @@ function NotesModal({ modalOpen, setModalOpen, setNotes }: IProps) {
               <Text style={AppStyle.textColor}>Cancel</Text>
             </Pressable>
             <Pressable
-              style={{
-                ...NotesModalStyle.button,
-                ...NotesModalStyle.saveButton,
-              }}
+              style={
+                buttonDisabled
+                  ? {
+                      ...NotesModalStyle.button,
+                      ...NotesModalStyle.saveButtonDisabled,
+                    }
+                  : {
+                      ...NotesModalStyle.button,
+                      ...NotesModalStyle.saveButton,
+                    }
+              }
               onPress={onSave}
               disabled={buttonDisabled}
             >
