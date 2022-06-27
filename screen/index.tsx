@@ -10,25 +10,43 @@ import Nothing from '../components/Nothing';
 
 function Home() {
   const [notes, setNotes] = useState<NotesListProps[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [editId, setEditId] = useState<string>('');
 
   const deleteNote = (id: string) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   };
 
-  console.log(notes);
+  // edit notes state
+  const editNote = (id: string, title: string, note: string) => {
+    setNotes((prevNotes) => {
+      const newNotes = [...prevNotes];
+      const index = newNotes.findIndex((newNote) => newNote.id === id);
+      newNotes[index] = {
+        id,
+        title,
+        note,
+        date: new Date().toLocaleDateString(),
+      };
+      return newNotes;
+    });
+  };
 
   return (
     <SafeAreaView style={HomeStyle.wrapper}>
       <NotesModal
         modalOpen={modalOpen}
+        editId={editId}
+        notes={notes}
         setModalOpen={setModalOpen}
         setNotes={setNotes}
+        setEditId={setEditId}
+        editNote={editNote}
       />
       <Header setModalOpen={setModalOpen} />
       <ScrollView>
         {notes.length > 0 ? (
-          notes
+          [...notes]
             .reverse()
             .map((note) => (
               <NotesList
@@ -37,7 +55,9 @@ function Home() {
                 title={note.title}
                 note={note.note}
                 date={note.date}
+                setModalOpen={setModalOpen}
                 deleteNote={deleteNote}
+                setEditId={setEditId}
               />
             ))
         ) : (

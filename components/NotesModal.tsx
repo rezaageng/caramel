@@ -6,11 +6,24 @@ import { NotesListProps } from '../types/notes';
 
 interface IProps {
   modalOpen: boolean;
+  editId: string;
+  notes: NotesListProps[];
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   setNotes: Dispatch<SetStateAction<NotesListProps[]>>;
+  setEditId: Dispatch<SetStateAction<string>>;
+  // eslint-disable-next-line no-unused-vars
+  editNote: (id: string, title: string, note: string) => void;
 }
 
-function NotesModal({ modalOpen, setModalOpen, setNotes }: IProps) {
+function NotesModal({
+  modalOpen,
+  editId,
+  notes,
+  setModalOpen,
+  setNotes,
+  setEditId,
+  editNote,
+}: IProps) {
   const [title, setTitle] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
@@ -20,16 +33,31 @@ function NotesModal({ modalOpen, setModalOpen, setNotes }: IProps) {
     else setButtonDisabled(true);
   }, [note]);
 
+  useEffect(() => {
+    if (editId.length > 0) {
+      const newNote = notes.find((_note) => _note.id === editId);
+      if (newNote) {
+        setTitle(newNote.title);
+        setNote(newNote.note);
+      }
+    }
+  }, [editId]);
+
   const onSave = () => {
-    setNotes((prevNotes) => [
-      ...prevNotes,
-      {
-        id: `note${(Math.random() * 1000).toFixed(0)}`,
-        title: title || 'Untitled',
-        note,
-        date: new Date().toLocaleDateString(),
-      },
-    ]);
+    if (editId.length > 0) {
+      editNote(editId, title, note);
+    } else {
+      setNotes((prevNotes) => [
+        ...prevNotes,
+        {
+          id: `note${(Math.random() * 1000).toFixed(0)}`,
+          title: title || 'Untitled',
+          note,
+          date: new Date().toLocaleDateString(),
+        },
+      ]);
+    }
+    setEditId('');
     setTitle('');
     setNote('');
     setModalOpen(false);
@@ -51,6 +79,7 @@ function NotesModal({ modalOpen, setModalOpen, setNotes }: IProps) {
               placeholder="Title.."
               placeholderTextColor="#6e6e6e"
               selectionColor="#4338ca"
+              value={title}
               onChangeText={(text) => setTitle(text)}
             />
             <TextInput
@@ -61,6 +90,7 @@ function NotesModal({ modalOpen, setModalOpen, setNotes }: IProps) {
               placeholder="What happened today?"
               placeholderTextColor="#6e6e6e"
               selectionColor="#4338ca"
+              value={note}
               onChangeText={(text) => setNote(text)}
             />
           </View>
