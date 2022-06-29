@@ -15,11 +15,11 @@ function Home() {
   const [editId, setEditId] = useState<string>('');
 
   // async storage
-  const storeData = async () => {
+  const storeData = async (val: NotesListProps[]) => {
     try {
-      await AsyncStorage.setItem('notes', JSON.stringify(notes));
-      console.log('successfully stored data');
+      await AsyncStorage.setItem('notes', JSON.stringify(val));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
   };
@@ -28,10 +28,10 @@ function Home() {
     try {
       const value = await AsyncStorage.getItem('notes');
       if (value !== null) {
-        console.log(value);
         setNotes(JSON.parse(value));
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
     }
   };
@@ -60,6 +60,10 @@ function Home() {
     getData();
   }, []);
 
+  useEffect(() => {
+    storeData(notes);
+  }, [notes]);
+
   return (
     <SafeAreaView style={HomeStyle.wrapper}>
       <NotesModal
@@ -70,7 +74,6 @@ function Home() {
         setNotes={setNotes}
         setEditId={setEditId}
         editNote={editNote}
-        storeData={storeData}
       />
       <Header setModalOpen={setModalOpen} />
       <ScrollView>
