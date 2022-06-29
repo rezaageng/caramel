@@ -13,6 +13,7 @@ interface IProps {
   setEditId: Dispatch<SetStateAction<string>>;
   // eslint-disable-next-line no-unused-vars
   editNote: (id: string, title: string, note: string) => void;
+  storeData: () => void;
 }
 
 function NotesModal({
@@ -23,6 +24,7 @@ function NotesModal({
   setNotes,
   setEditId,
   editNote,
+  storeData,
 }: IProps) {
   const [title, setTitle] = useState<string>('');
   const [note, setNote] = useState<string>('');
@@ -60,6 +62,7 @@ function NotesModal({
     setEditId('');
     setTitle('');
     setNote('');
+    storeData();
     setModalOpen(false);
   };
 

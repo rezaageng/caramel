@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import NotesList from '../components/NotesList';
 import HomeStyle from '../style/Home.style';
 import Header from '../components/Header';
@@ -13,6 +14,29 @@ function Home() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editId, setEditId] = useState<string>('');
 
+  // async storage
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem('notes', JSON.stringify(notes));
+      console.log('successfully stored data');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('notes');
+      if (value !== null) {
+        console.log(value);
+        setNotes(JSON.parse(value));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // delete note
   const deleteNote = (id: string) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   };
@@ -32,6 +56,10 @@ function Home() {
     });
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <SafeAreaView style={HomeStyle.wrapper}>
       <NotesModal
@@ -42,6 +70,7 @@ function Home() {
         setNotes={setNotes}
         setEditId={setEditId}
         editNote={editNote}
+        storeData={storeData}
       />
       <Header setModalOpen={setModalOpen} />
       <ScrollView>
