@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { format } from 'date-fns';
 import NotesList from '../components/NotesList';
 import HomeStyle from '../style/Home.style';
 import Header from '../components/Header';
@@ -48,9 +49,9 @@ function Home() {
       const index = newNotes.findIndex((newNote) => newNote.id === id);
       newNotes[index] = {
         id,
-        title,
+        title: title || 'Untitled',
         note,
-        date: new Date().toLocaleDateString(),
+        date: format(new Date(), 'MMMM do, yyyy H:mma'),
       };
       return newNotes;
     });

@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { format } from 'date-fns';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   Modal,
@@ -21,6 +22,11 @@ interface IProps {
   editNote: (id: string, title: string, note: string) => void;
 }
 
+interface IPrevState {
+  title: string;
+  note: string;
+}
+
 function NotesModal({
   modalOpen,
   editId,
@@ -30,24 +36,31 @@ function NotesModal({
   setEditId,
   editNote,
 }: IProps) {
+  const initialPrevNote: IPrevState = {
+    title: '',
+    note: '',
+  };
+
   const [title, setTitle] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isPending, setIsPending] = useState<boolean>(false);
   const [pendingText, setPendingText] = useState<boolean>(false);
-  const [prevNote, setPrevNote] = useState<string>('');
+  const [prevNote, setPrevNote] = useState<IPrevState>(initialPrevNote);
 
   useEffect(() => {
     if (note.length > 0 && note.match(/\S/)) setButtonDisabled(false);
-    if (note !== prevNote) {
-      setIsPending(true);
-      setPendingText(false);
-    } else {
+    if (
+      (note === prevNote.note && title === prevNote.title) ||
+      (title.length > 0 && note.length === 0)
+    ) {
       setButtonDisabled(true);
       setIsPending(false);
-      setPrevNote('');
+    } else {
+      setIsPending(true);
+      setPendingText(false);
     }
-  }, [note]);
+  }, [note, title]);
 
   useEffect(() => {
     if (editId.length > 0) {
@@ -55,7 +68,7 @@ function NotesModal({
       if (newNote) {
         setTitle(newNote.title);
         setNote(newNote.note);
-        setPrevNote(newNote.note);
+        setPrevNote({ title: newNote.title, note: newNote.note });
       }
     }
   }, [editId]);
@@ -70,16 +83,18 @@ function NotesModal({
           id: `note${(Math.random() * 1000).toFixed(0)}`,
           title: title || 'Untitled',
           note,
-          date: new Date().toLocaleDateString(),
+          date: format(new Date(), 'MMMM do, yyyy H:mma'),
         },
       ]);
     }
     setIsPending(false);
     setPendingText(false);
+    setPrevNote(initialPrevNote);
     setEditId('');
     setTitle('');
     setNote('');
     setModalOpen(false);
+    setButtonDisabled(true);
   };
 
   const onCancel = () => {
@@ -88,7 +103,7 @@ function NotesModal({
       setPendingText(true);
     } else {
       setIsPending(false);
-      setPrevNote('');
+      setPrevNote(initialPrevNote);
       setPendingText(false);
       setEditId('');
       setTitle('');
