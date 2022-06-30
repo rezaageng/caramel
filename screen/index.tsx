@@ -77,7 +77,7 @@ function Home() {
         editNote={editNote}
       />
       <Header setModalOpen={setModalOpen} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {notes.length > 0 ? (
           [...notes]
             .reverse()

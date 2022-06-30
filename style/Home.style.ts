@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 const HomeStyle = StyleSheet.create({
   wrapper: {
     flex: 1,
-    padding: 16,
-    marginBottom: 38,
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
 });
 
