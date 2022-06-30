@@ -8,6 +8,8 @@ module.exports = {
     'airbnb',
     'plugin:react/jsx-runtime',
     'prettier',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
