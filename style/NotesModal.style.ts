@@ -3,16 +3,18 @@ import { StyleSheet } from 'react-native';
 const NotesModalStyle = StyleSheet.create({
   modal: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   wrapper: {
     backgroundColor: '#242424',
-    borderRadius: 10,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     padding: 20,
     alignItems: 'center',
-    width: '80%',
+    width: '100%',
+    maxHeight: '100%',
   },
   inputWrapper: {
     width: '100%',
@@ -24,23 +26,12 @@ const NotesModalStyle = StyleSheet.create({
   },
   buttonWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
-    marginTop: 16,
+    marginBottom: 16,
   },
   button: {
-    backgroundColor: '#ffffff',
-    padding: 8,
-    borderRadius: 8,
-  },
-  cancelButton: {
-    backgroundColor: '#fc0384',
-  },
-  saveButton: {
-    backgroundColor: '#4338ca',
-  },
-  saveButtonDisabled: {
-    backgroundColor: '#6366f1',
+    backgroundColor: '#fff',
   },
 });
 

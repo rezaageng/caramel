@@ -1,6 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Modal, Pressable, Text, TextInput, View } from 'react-native';
-import AppStyle from '../style/App.style';
+import { Modal, Pressable, ScrollView, TextInput, View } from 'react-native';
 import NotesModalStyle from '../style/NotesModal.style';
 import { NotesListProps } from '../types/notes';
 
@@ -71,10 +71,31 @@ function NotesModal({
   };
 
   return (
-    <Modal transparent visible={modalOpen} animationType="slide">
+    <Modal
+      transparent
+      visible={modalOpen}
+      animationType="slide"
+      onRequestClose={onCancel}
+    >
       <View style={NotesModalStyle.modal}>
         <View style={NotesModalStyle.wrapper}>
-          <View style={NotesModalStyle.inputWrapper}>
+          <View style={NotesModalStyle.buttonWrapper}>
+            <Pressable android_disableSound onPress={onCancel}>
+              <Ionicons name="arrow-back" size={28} color="#ff369e" />
+            </Pressable>
+            <Pressable
+              android_disableSound
+              onPress={onSave}
+              disabled={buttonDisabled}
+            >
+              <Ionicons
+                name="checkmark-sharp"
+                size={28}
+                color={buttonDisabled ? '#6b6b6b' : '#ff369e'}
+              />
+            </Pressable>
+          </View>
+          <ScrollView style={NotesModalStyle.inputWrapper}>
             <TextInput
               style={NotesModalStyle.textInput}
               placeholder="Title.."
@@ -94,37 +115,7 @@ function NotesModal({
               value={note}
               onChangeText={(text) => setNote(text)}
             />
-          </View>
-          <View style={NotesModalStyle.buttonWrapper}>
-            <Pressable
-              android_disableSound
-              style={{
-                ...NotesModalStyle.button,
-                ...NotesModalStyle.cancelButton,
-              }}
-              onPress={onCancel}
-            >
-              <Text style={AppStyle.textColor}>Cancel</Text>
-            </Pressable>
-            <Pressable
-              android_disableSound
-              style={
-                buttonDisabled
-                  ? {
-                      ...NotesModalStyle.button,
-                      ...NotesModalStyle.saveButtonDisabled,
-                    }
-                  : {
-                      ...NotesModalStyle.button,
-                      ...NotesModalStyle.saveButton,
-                    }
-              }
-              onPress={onSave}
-              disabled={buttonDisabled}
-            >
-              <Text style={AppStyle.textColor}>Save</Text>
-            </Pressable>
-          </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>
