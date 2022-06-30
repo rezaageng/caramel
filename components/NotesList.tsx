@@ -6,7 +6,6 @@ import { NotesListProps } from '../types/notes';
 
 interface IProps extends NotesListProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-  // eslint-disable-next-line no-unused-vars
   deleteNote: (id: string) => void;
   setEditId: Dispatch<SetStateAction<string>>;
 }

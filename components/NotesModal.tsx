@@ -11,7 +11,6 @@ interface IProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   setNotes: Dispatch<SetStateAction<NotesListProps[]>>;
   setEditId: Dispatch<SetStateAction<string>>;
-  // eslint-disable-next-line no-unused-vars
   editNote: (id: string, title: string, note: string) => void;
 }
 
