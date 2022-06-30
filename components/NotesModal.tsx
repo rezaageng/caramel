@@ -29,7 +29,7 @@ function NotesModal({
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (note.length > 0) setButtonDisabled(false);
+    if (note.length > 0 && note.match(/\S/)) setButtonDisabled(false);
     else setButtonDisabled(true);
   }, [note]);
 
