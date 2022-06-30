@@ -33,6 +33,9 @@ const NotesModalStyle = StyleSheet.create({
   button: {
     backgroundColor: '#fff',
   },
+  warningText: {
+    color: 'red',
+  },
 });
 
 export default NotesModalStyle;

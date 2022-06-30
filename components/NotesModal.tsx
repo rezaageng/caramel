@@ -1,6 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Modal, Pressable, ScrollView, TextInput, View } from 'react-native';
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import NotesModalStyle from '../style/NotesModal.style';
 import { NotesListProps } from '../types/notes';
 
@@ -26,10 +33,20 @@ function NotesModal({
   const [title, setTitle] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [pendingText, setPendingText] = useState<boolean>(false);
+  const [prevNote, setPrevNote] = useState<string>('');
 
   useEffect(() => {
     if (note.length > 0 && note.match(/\S/)) setButtonDisabled(false);
-    else setButtonDisabled(true);
+    if (note !== prevNote) {
+      setIsPending(true);
+      setPendingText(false);
+    } else {
+      setButtonDisabled(true);
+      setIsPending(false);
+      setPrevNote('');
+    }
   }, [note]);
 
   useEffect(() => {
@@ -38,6 +55,7 @@ function NotesModal({
       if (newNote) {
         setTitle(newNote.title);
         setNote(newNote.note);
+        setPrevNote(newNote.note);
       }
     }
   }, [editId]);
@@ -56,6 +74,8 @@ function NotesModal({
         },
       ]);
     }
+    setIsPending(false);
+    setPendingText(false);
     setEditId('');
     setTitle('');
     setNote('');
@@ -63,10 +83,18 @@ function NotesModal({
   };
 
   const onCancel = () => {
-    setEditId('');
-    setTitle('');
-    setNote('');
-    setModalOpen(false);
+    if (isPending) {
+      setIsPending(false);
+      setPendingText(true);
+    } else {
+      setIsPending(false);
+      setPrevNote('');
+      setPendingText(false);
+      setEditId('');
+      setTitle('');
+      setNote('');
+      setModalOpen(false);
+    }
   };
 
   return (
@@ -115,6 +143,11 @@ function NotesModal({
               onChangeText={(text) => setNote(text)}
             />
           </ScrollView>
+          {pendingText && (
+            <Text style={NotesModalStyle.warningText}>
+              are you sure? press again to close!
+            </Text>
+          )}
         </View>
       </View>
     </Modal>
