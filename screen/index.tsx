@@ -4,12 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { format } from 'date-fns';
 import NotesList from '../components/NotesList';
-import HomeStyle from '../style/Home.style';
 import Header from '../components/Header';
 import { NotesListProps, PopupProps } from '../types/notes';
 import NotesModal from '../components/NotesModal';
 import Nothing from '../components/Nothing';
 import DeleteConfirm from '../components/DeleteConfirm';
+import AppStyle from '../style/App.style';
 
 function Home() {
   const [notes, setNotes] = useState<NotesListProps[]>([]);
@@ -81,7 +81,7 @@ function Home() {
   }, [notes]);
 
   return (
-    <SafeAreaView style={HomeStyle.wrapper}>
+    <SafeAreaView style={AppStyle.safeArea}>
       <NotesModal
         modalOpen={modalOpen}
         editId={editId}
