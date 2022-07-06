@@ -4,3 +4,8 @@ export interface NotesListProps {
   note: string;
   date: string;
 }
+
+export interface PopupProps {
+  id: string;
+  delete: boolean;
+}

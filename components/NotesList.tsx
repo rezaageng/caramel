@@ -6,7 +6,7 @@ import { NotesListProps } from '../types/notes';
 
 interface IProps extends NotesListProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-  deleteNote: (id: string) => void;
+  handleDelete: (id: string) => void;
   setEditId: Dispatch<SetStateAction<string>>;
 }
 
@@ -16,7 +16,7 @@ function NotesList({
   note,
   date,
   setModalOpen,
-  deleteNote,
+  handleDelete,
   setEditId,
 }: IProps) {
   return (
@@ -24,7 +24,7 @@ function NotesList({
       style={NotesListStyle.wrapper}
       android_ripple={{ color: '#3d3d3d', radius: 170 }}
       android_disableSound
-      onLongPress={() => deleteNote(id)}
+      onLongPress={() => handleDelete(id)}
       onPress={() => {
         setEditId(id);
         setModalOpen(true);

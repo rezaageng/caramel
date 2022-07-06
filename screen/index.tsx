@@ -6,14 +6,16 @@ import { format } from 'date-fns';
 import NotesList from '../components/NotesList';
 import HomeStyle from '../style/Home.style';
 import Header from '../components/Header';
-import { NotesListProps } from '../types/notes';
+import { NotesListProps, PopupProps } from '../types/notes';
 import NotesModal from '../components/NotesModal';
 import Nothing from '../components/Nothing';
+import DeleteConfirm from '../components/DeleteConfirm';
 
 function Home() {
   const [notes, setNotes] = useState<NotesListProps[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editId, setEditId] = useState<string>('');
+  const [popup, setPopup] = useState<PopupProps>({ id: '', delete: false });
 
   // async storage
   const storeData = async (val: NotesListProps[]) => {
@@ -37,9 +39,22 @@ function Home() {
     }
   };
 
+  // handle delete
+  const handleDelete = (id: string) => {
+    setPopup({ id, delete: true });
+  };
+
   // delete note
-  const deleteNote = (id: string) => {
-    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+  const deleteNote = () => {
+    if (popup.delete && popup.id)
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== popup.id));
+
+    setPopup({ id: '', delete: false });
+  };
+
+  // cancel delete
+  const cancelDelete = () => {
+    setPopup({ id: '', delete: false });
   };
 
   // edit notes state
@@ -76,6 +91,11 @@ function Home() {
         setEditId={setEditId}
         editNote={editNote}
       />
+      <DeleteConfirm
+        popup={popup.delete}
+        deleteNote={deleteNote}
+        cancelDelete={cancelDelete}
+      />
       <Header setModalOpen={setModalOpen} />
       <ScrollView showsVerticalScrollIndicator={false}>
         {notes.length > 0 ? (
@@ -89,7 +109,7 @@ function Home() {
                 note={note.note}
                 date={note.date}
                 setModalOpen={setModalOpen}
-                deleteNote={deleteNote}
+                handleDelete={handleDelete}
                 setEditId={setEditId}
               />
             ))
