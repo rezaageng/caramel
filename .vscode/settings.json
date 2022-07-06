@@ -1,3 +1,9 @@
 {
-  "conventionalCommits.scopes": ["config", "navigation", "notes", "header"]
+  "conventionalCommits.scopes": [
+    "config",
+    "navigation",
+    "notes",
+    "header",
+    "todos"
+  ]
 }
