@@ -1,6 +1,7 @@
+/* eslint-disable global-require */
 import { AntDesign } from '@expo/vector-icons';
 import { Dispatch, SetStateAction } from 'react';
-import { Pressable, TextInput, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import HeaderStyle from '../style/Header.style';
 
 interface IProps {
@@ -10,6 +11,11 @@ interface IProps {
 function Header({ setModalOpen }: IProps) {
   return (
     <View style={HeaderStyle.wrapper}>
+      <Image
+        source={require('../assets/image/eve_e.jpg')}
+        style={HeaderStyle.image}
+      />
+      <Text style={HeaderStyle.title}>Caramel</Text>
       <Pressable
         style={HeaderStyle.pressable}
         android_ripple={{ color: '#ff369e', radius: 20 }}
@@ -18,12 +24,6 @@ function Header({ setModalOpen }: IProps) {
       >
         <AntDesign name="plus" size={16} color="white" />
       </Pressable>
-      <TextInput
-        style={HeaderStyle.textInput}
-        placeholder="Search"
-        placeholderTextColor="#6e6e6e"
-        selectionColor="#4338ca"
-      />
     </View>
   );
 }

@@ -4,6 +4,8 @@ const HeaderStyle = StyleSheet.create({
   wrapper: {
     paddingBottom: 16,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   pressable: {
     backgroundColor: '#fc0384',
@@ -13,12 +15,16 @@ const HeaderStyle = StyleSheet.create({
     borderRadius: 12,
     marginRight: 8,
   },
-  textInput: {
-    backgroundColor: '#242424',
-    flex: 1,
-    paddingHorizontal: 12,
+  title: {
     color: '#ffffff',
-    borderRadius: 12,
+    fontFamily: 'BalsamiqSans_400Regular',
+    fontSize: 24,
+  },
+
+  image: {
+    width: 38,
+    height: 38,
+    borderRadius: 9999,
   },
 });
 
