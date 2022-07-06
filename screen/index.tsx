@@ -130,26 +130,24 @@ function Home() {
         cancelDelete={cancelDelete}
       />
       <Header setModalOpen={setModalOpen} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {notes.length > 0 ? (
-          [...notes]
-            .reverse()
-            .map((note) => (
-              <NotesList
-                key={note.id}
-                id={note.id}
-                title={note.title}
-                note={note.note}
-                date={note.date}
-                setModalOpen={setModalOpen}
-                handleDelete={handleDelete}
-                setEditId={setEditId}
-              />
-            ))
-        ) : (
-          <Nothing />
-        )}
-      </ScrollView>
+      {notes.length > 0 ? (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {[...notes].reverse().map((note) => (
+            <NotesList
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              note={note.note}
+              date={note.date}
+              setModalOpen={setModalOpen}
+              handleDelete={handleDelete}
+              setEditId={setEditId}
+            />
+          ))}
+        </ScrollView>
+      ) : (
+        <Nothing />
+      )}
     </SafeAreaView>
   );
 }
