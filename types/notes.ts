@@ -5,6 +5,12 @@ export interface NotesListProps {
   date: string;
 }
 
+export interface TodosListProps {
+  id: string;
+  todo: string;
+  date: string;
+}
+
 export interface PopupProps {
   id: string;
   delete: boolean;
