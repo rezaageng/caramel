@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import Nothing from '../components/Nothing';
 import TodosList from '../components/TodoList';
-import TodosModal from '../components/TodosModal';
+import TodosModal from '../components/TodoModal';
 import AppStyle from '../style/App.style';
 import { TodosListProps } from '../types/notes';
 
