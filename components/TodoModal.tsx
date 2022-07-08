@@ -45,6 +45,7 @@ function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
         id: `todo${(Math.random() * 1000).toFixed(0)}`,
         todo,
         date: format(new Date(), 'MMMM do, yyyy H:mma'),
+        checked: false,
       },
     ]);
     setModalOpen(false);

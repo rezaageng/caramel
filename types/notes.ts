@@ -9,6 +9,7 @@ export interface TodosListProps {
   id: string;
   todo: string;
   date: string;
+  checked: boolean;
 }
 
 export interface PopupProps {

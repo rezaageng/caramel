@@ -1,19 +1,32 @@
 import Checkbox from 'expo-checkbox';
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import AppStyle from '../style/App.style';
 import NotesListStyle from '../style/NotesList.style';
 import TodoListStyle from '../style/TodoList.style';
 import { TodosListProps } from '../types/notes';
 
-function TodosList({ id, todo, date }: TodosListProps) {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+interface IProps extends TodosListProps {
+  // setModalOpen: Dispatch<SetStateAction<boolean>>;
+  handleDelete: (id: string) => void;
+  // setEditId: Dispatch<SetStateAction<string>>;
+}
+
+function TodosList({ id, todo, date, checked, handleDelete }: IProps) {
+  const [isChecked, setIsChecked] = useState<boolean>(checked);
+
+  const checkedHandler = () => {
+    setIsChecked(!isChecked);
+  };
 
   return (
-    <View style={{ ...NotesListStyle.wrapper, ...TodoListStyle.wrapper }}>
+    <Pressable
+      onLongPress={() => handleDelete(id)}
+      style={{ ...NotesListStyle.wrapper, ...TodoListStyle.wrapper }}
+    >
       <Checkbox
         value={isChecked}
-        onValueChange={setIsChecked}
+        onValueChange={checkedHandler}
         color="#ff369e"
         style={TodoListStyle.checkbox}
       />
@@ -33,7 +46,7 @@ function TodosList({ id, todo, date }: TodosListProps) {
           {date}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
