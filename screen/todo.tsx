@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import Nothing from '../components/Nothing';
-import TodosList from '../components/TodosList';
+import TodosList from '../components/TodoList';
 import TodosModal from '../components/TodosModal';
 import AppStyle from '../style/App.style';
 import { TodosListProps } from '../types/notes';
