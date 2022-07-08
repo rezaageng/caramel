@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { format } from 'date-fns';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { Modal, Pressable, TextInput, View } from 'react-native';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Modal, Pressable, Text, TextInput, View } from 'react-native';
 import NotesModalStyle from '../style/NotesModal.style';
 import { TodosListProps } from '../types/notes';
 
@@ -12,8 +12,31 @@ interface IProps {
   setTodos: Dispatch<SetStateAction<TodosListProps[]>>;
 }
 
+interface IPrevState {
+  todo: string;
+}
+
 function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
+  const initialPrevTodo: IPrevState = {
+    todo: '',
+  };
+
   const [todo, setTodo] = useState<string>('');
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isPending, setIsPending] = useState<boolean>(false);
+  const [pendingText, setPendingText] = useState<boolean>(false);
+  const [prevTodo, setPrevTodo] = useState<IPrevState>(initialPrevTodo);
+
+  useEffect(() => {
+    if (todo.length > 0 && todo.match(/\S/)) setButtonDisabled(false);
+    if (todo === prevTodo.todo) {
+      setButtonDisabled(true);
+      setIsPending(false);
+    } else {
+      setIsPending(true);
+      setPendingText(false);
+    }
+  }, [todo]);
 
   const saveHandler = () => {
     setTodos((prevTodos) => [
@@ -29,7 +52,17 @@ function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
   };
 
   const cancelHandler = () => {
-    setModalOpen(false);
+    if (isPending) {
+      setIsPending(false);
+      setPendingText(true);
+    } else {
+      setIsPending(false);
+      setPrevTodo(initialPrevTodo);
+      setPendingText(false);
+      // setEditId('');
+      setTodo('');
+      setModalOpen(false);
+    }
   };
 
   return (
@@ -48,12 +81,12 @@ function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
             <Pressable
               android_disableSound
               onPress={saveHandler}
-              // disabled={buttonDisabled}
+              disabled={buttonDisabled}
             >
               <Ionicons
                 name="checkmark-sharp"
                 size={28}
-                // color={buttonDisabled ? '#6b6b6b' : '#ff369e'}
+                color={buttonDisabled ? '#6b6b6b' : '#ff369e'}
               />
             </Pressable>
           </View>
@@ -67,11 +100,11 @@ function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
               onChangeText={(text) => setTodo(text)}
             />
           </View>
-          {/* {pendingText && (
+          {pendingText && (
             <Text style={NotesModalStyle.warningText}>
               are you sure? press again to close!
             </Text>
-          )} */}
+          )}
         </View>
       </View>
     </Modal>
