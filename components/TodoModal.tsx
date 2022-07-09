@@ -7,18 +7,31 @@ import { TodosListProps } from '../types/notes';
 
 interface IProps {
   modalOpen: boolean;
+  editId: string;
   todos: TodosListProps[];
   setModalOpen: Dispatch<SetStateAction<boolean>>;
+  setEditId: Dispatch<SetStateAction<string>>;
   setTodos: Dispatch<SetStateAction<TodosListProps[]>>;
+  editTodo: (id: string, todo: string, checked: boolean) => void;
 }
 
 interface IPrevState {
   todo: string;
+  checked: boolean;
 }
 
-function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
+function TodosModal({
+  modalOpen,
+  editId,
+  todos,
+  setModalOpen,
+  setEditId,
+  setTodos,
+  editTodo,
+}: IProps) {
   const initialPrevTodo: IPrevState = {
     todo: '',
+    checked: false,
   };
 
   const [todo, setTodo] = useState<string>('');
@@ -38,18 +51,37 @@ function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
     }
   }, [todo]);
 
+  useEffect(() => {
+    if (editId.length > 0) {
+      const newTodo = todos.find((_todo) => _todo.id === editId);
+      if (newTodo) {
+        setTodo(newTodo.todo);
+        setPrevTodo({ todo: newTodo.todo, checked: newTodo.checked });
+      }
+    }
+  }, [editId]);
+
   const saveHandler = () => {
-    setTodos((prevTodos) => [
-      ...prevTodos,
-      {
-        id: `todo${(Math.random() * 1000).toFixed(0)}`,
-        todo,
-        date: format(new Date(), 'MMMM do, yyyy H:mma'),
-        checked: false,
-      },
-    ]);
+    if (editId.length > 0) {
+      editTodo(editId, todo, prevTodo.checked);
+    } else {
+      setTodos((prevTodos) => [
+        ...prevTodos,
+        {
+          id: `todo${(Math.random() * 1000).toFixed(0)}`,
+          todo,
+          date: format(new Date(), 'MMMM do, yyyy H:mma'),
+          checked: false,
+        },
+      ]);
+    }
+    setIsPending(false);
+    setPendingText(false);
+    setPrevTodo(initialPrevTodo);
+    setEditId('');
     setModalOpen(false);
     setTodo('');
+    setButtonDisabled(true);
   };
 
   const cancelHandler = () => {
@@ -60,7 +92,7 @@ function TodosModal({ modalOpen, todos, setModalOpen, setTodos }: IProps) {
       setIsPending(false);
       setPrevTodo(initialPrevTodo);
       setPendingText(false);
-      // setEditId('');
+      setEditId('');
       setTodo('');
       setModalOpen(false);
     }

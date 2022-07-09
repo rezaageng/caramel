@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { format } from 'date-fns';
 import Header from '../components/Header';
 import Nothing from '../components/Nothing';
 import TodosList from '../components/TodoList';
@@ -14,6 +15,7 @@ function Todo() {
   const [todos, setTodos] = useState<TodosListProps[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [popup, setPopup] = useState<PopupProps>({ id: '', delete: false });
+  const [editId, setEditId] = useState<string>('');
 
   // async storage
   const storeData = async (val: TodosListProps[]) => {
@@ -55,6 +57,27 @@ function Todo() {
     setPopup({ id: '', delete: false });
   };
 
+  // edit todos state
+  const editTodo = (id: string, todo: string, checked: boolean) => {
+    setTodos((prevTodos) => {
+      const newTodos = [...prevTodos];
+      const index = newTodos.findIndex((newTodo) => newTodo.id === id);
+
+      if (checked !== newTodos[index].checked) {
+        newTodos[index].checked = checked;
+      } else {
+        newTodos[index] = {
+          id,
+          todo,
+          checked,
+          date: format(new Date(), 'MMMM do, yyyy H:mma'),
+        };
+      }
+
+      return newTodos;
+    });
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -68,9 +91,12 @@ function Todo() {
       <Header setModalOpen={setModalOpen} />
       <TodosModal
         modalOpen={modalOpen}
+        editId={editId}
         todos={todos}
         setModalOpen={setModalOpen}
+        setEditId={setEditId}
         setTodos={setTodos}
+        editTodo={editTodo}
       />
       <DeleteConfirm
         popup={popup.delete}
@@ -86,7 +112,10 @@ function Todo() {
               todo={todo.todo}
               date={todo.date}
               checked={todo.checked}
+              setModalOpen={setModalOpen}
               handleDelete={handleDelete}
+              setEditId={setEditId}
+              editTodo={editTodo}
             />
           ))}
         </ScrollView>
