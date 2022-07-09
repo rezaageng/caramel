@@ -38,6 +38,8 @@ function TodosList({
         setModalOpen(true);
       }}
       style={{ ...NotesListStyle.wrapper, ...TodoListStyle.wrapper }}
+      android_ripple={{ color: '#3d3d3d', radius: 170 }}
+      android_disableSound
     >
       <Checkbox
         value={checked}
