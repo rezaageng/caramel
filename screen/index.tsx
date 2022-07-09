@@ -131,7 +131,7 @@ function Home() {
       />
       <Header setModalOpen={setModalOpen} />
       {notes.length > 0 ? (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
           {[...notes].reverse().map((note) => (
             <NotesList
               key={note.id}

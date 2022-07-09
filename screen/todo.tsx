@@ -104,7 +104,7 @@ function Todo() {
         cancelDelete={cancelDelete}
       />
       {todos.length > 0 ? (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
           {[...todos].reverse().map((todo) => (
             <TodosList
               key={todo.id}
