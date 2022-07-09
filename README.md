@@ -1,4 +1,4 @@
-<div style="width:280px; margin:auto">
+<div align="center">
 
 <a href="https://www.flaticon.com/free-icons/caramel">![icon](./assets/caramel.png)</a>
 
