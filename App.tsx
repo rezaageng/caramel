@@ -1,13 +1,14 @@
 /* eslint-disable react/style-prop-object */
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import TabNav from './navigation/TabNav';
+import Dark from './theme/theme';
 
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer theme={DarkTheme}>
+      <NavigationContainer theme={Dark}>
         <TabNav />
       </NavigationContainer>
     </>

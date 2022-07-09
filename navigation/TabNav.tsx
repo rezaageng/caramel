@@ -1,18 +1,21 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Feather } from '@expo/vector-icons';
+import { useTheme } from '@react-navigation/native';
 import Home from '../screen';
 import Todo from '../screen/todo';
 
 const Tab = createBottomTabNavigator();
 
 function TabNav() {
+  const { colors } = useTheme();
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#ffffff',
-        tabBarStyle: { height: 60, backgroundColor: '#000000' },
+        tabBarActiveTintColor: colors.primary,
+        tabBarStyle: { height: 60, backgroundColor: colors.background },
         tabBarShowLabel: false,
       }}
     >
