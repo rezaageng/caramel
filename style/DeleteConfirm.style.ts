@@ -17,7 +17,7 @@ const DeleteConfirmStyle = StyleSheet.create({
     marginTop: 28,
   },
   text: {
-    color: '#ff369e',
+    color: '#CA6D36',
   },
 });
 

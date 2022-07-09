@@ -18,7 +18,7 @@ function Header({ setModalOpen }: IProps) {
       <Text style={HeaderStyle.title}>Caramel</Text>
       <Pressable
         style={HeaderStyle.pressable}
-        android_ripple={{ color: '#ff369e', radius: 20 }}
+        android_ripple={{ color: '#CA6D36', radius: 20 }}
         android_disableSound
         onPress={() => setModalOpen(true)}
       >

@@ -123,7 +123,7 @@ function NotesModal({
         <View style={NotesModalStyle.wrapper}>
           <View style={NotesModalStyle.buttonWrapper}>
             <Pressable android_disableSound onPress={onCancel}>
-              <Ionicons name="arrow-back" size={28} color="#ff369e" />
+              <Ionicons name="arrow-back" size={28} color="#CA6D36" />
             </Pressable>
             <Pressable
               android_disableSound
@@ -133,7 +133,7 @@ function NotesModal({
               <Ionicons
                 name="checkmark-sharp"
                 size={28}
-                color={buttonDisabled ? '#6b6b6b' : '#ff369e'}
+                color={buttonDisabled ? '#6b6b6b' : '#CA6D36'}
               />
             </Pressable>
           </View>
@@ -142,7 +142,7 @@ function NotesModal({
               style={NotesModalStyle.textInput}
               placeholder="Title.."
               placeholderTextColor="#6e6e6e"
-              selectionColor="#4338ca"
+              selectionColor="#CA6D36"
               value={title}
               onChangeText={(text) => setTitle(text)}
             />
@@ -153,7 +153,7 @@ function NotesModal({
               numberOfLines={10}
               placeholder="What happened today?"
               placeholderTextColor="#6e6e6e"
-              selectionColor="#4338ca"
+              selectionColor="#CA6D36"
               value={note}
               onChangeText={(text) => setNote(text)}
             />

@@ -8,7 +8,7 @@ const HeaderStyle = StyleSheet.create({
     alignItems: 'center',
   },
   pressable: {
-    backgroundColor: '#fc0384',
+    backgroundColor: '#CA6D36',
     padding: 12,
     alignItems: 'center',
     alignSelf: 'flex-start',

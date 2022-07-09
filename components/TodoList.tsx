@@ -44,7 +44,7 @@ function TodosList({
       <Checkbox
         value={checked}
         onValueChange={checkedHandler}
-        color="#ff369e"
+        color="#CA6D36"
         style={TodoListStyle.checkbox}
       />
       <View style={TodoListStyle.todoWrapper}>

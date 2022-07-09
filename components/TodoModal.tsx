@@ -109,7 +109,7 @@ function TodosModal({
         <View style={NotesModalStyle.wrapper}>
           <View style={NotesModalStyle.buttonWrapper}>
             <Pressable android_disableSound onPress={cancelHandler}>
-              <Ionicons name="arrow-back" size={28} color="#ff369e" />
+              <Ionicons name="arrow-back" size={28} color="#CA6D36" />
             </Pressable>
             <Pressable
               android_disableSound
@@ -119,7 +119,7 @@ function TodosModal({
               <Ionicons
                 name="checkmark-sharp"
                 size={28}
-                color={buttonDisabled ? '#6b6b6b' : '#ff369e'}
+                color={buttonDisabled ? '#6b6b6b' : '#CA6D36'}
               />
             </Pressable>
           </View>
@@ -128,7 +128,7 @@ function TodosModal({
               style={NotesModalStyle.textInput}
               placeholder="To do..."
               placeholderTextColor="#6e6e6e"
-              selectionColor="#4338ca"
+              selectionColor="#CA6D36"
               value={todo}
               onChangeText={(text) => setTodo(text)}
             />
