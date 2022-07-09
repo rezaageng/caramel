@@ -11,11 +11,13 @@ interface IProps {
 function Header({ setModalOpen }: IProps) {
   return (
     <View style={HeaderStyle.wrapper}>
-      <Image
-        source={require('../assets/image/eve_e.jpg')}
-        style={HeaderStyle.image}
-      />
-      <Text style={HeaderStyle.title}>Caramel</Text>
+      <View style={HeaderStyle.caramelWrapper}>
+        <Image
+          source={require('../assets/caramel.png')}
+          style={HeaderStyle.image}
+        />
+        <Text style={HeaderStyle.title}>Caramel</Text>
+      </View>
       <Pressable
         style={HeaderStyle.pressable}
         android_ripple={{ color: '#CA6D36', radius: 20 }}
