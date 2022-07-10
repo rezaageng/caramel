@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
 import Home from '../screen';
 import Todo from '../screen/todo';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 function TabNav() {
   const { colors } = useTheme();
@@ -13,18 +13,20 @@ function TabNav() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: { height: 60, backgroundColor: colors.background },
         tabBarShowLabel: false,
+        tabBarIndicatorStyle: { display: 'none' },
       }}
+      tabBarPosition="bottom"
+      showPageIndicator={false}
     >
       <Tab.Screen
         name="Notes"
         component={Home}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="book" size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="book" size={24} color={color} />
           ),
         }}
       />
@@ -32,8 +34,8 @@ function TabNav() {
         name="To Do Lists"
         component={Todo}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="check-square" size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Feather name="check-square" size={24} color={color} />
           ),
         }}
       />
