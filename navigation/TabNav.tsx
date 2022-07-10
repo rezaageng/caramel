@@ -22,7 +22,7 @@ function TabNav() {
       showPageIndicator={false}
     >
       <Tab.Screen
-        name="Notes"
+        name="notes"
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
@@ -31,7 +31,7 @@ function TabNav() {
         }}
       />
       <Tab.Screen
-        name="To Do Lists"
+        name="todos"
         component={Todo}
         options={{
           tabBarIcon: ({ color }) => (
