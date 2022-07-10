@@ -1,12 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { format } from 'date-fns';
-import * as SplashScreen from 'expo-splash-screen';
-import * as Font from 'expo-font';
-// eslint-disable-next-line camelcase
-import { BalsamiqSans_400Regular } from '@expo-google-fonts/balsamiq-sans';
 import NotesList from '../components/NotesList';
 import Header from '../components/Header';
 import { NotesListProps, PopupProps } from '../types/notes';
@@ -16,25 +12,10 @@ import DeleteConfirm from '../components/DeleteConfirm';
 import AppStyle from '../style/App.style';
 
 function Home() {
-  const [appIsReady, setAppIsReady] = useState<boolean>(false);
   const [notes, setNotes] = useState<NotesListProps[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [editId, setEditId] = useState<string>('');
   const [popup, setPopup] = useState<PopupProps>({ id: '', delete: false });
-
-  // prepare
-  const prepare = async () => {
-    try {
-      await SplashScreen.preventAutoHideAsync();
-      // eslint-disable-next-line camelcase
-      await Font.loadAsync({ BalsamiqSans_400Regular });
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn(e);
-    } finally {
-      setAppIsReady(true);
-    }
-  };
 
   // async storage
   const storeData = async (val: NotesListProps[]) => {
@@ -99,22 +80,8 @@ function Home() {
     storeData(notes);
   }, [notes]);
 
-  useEffect(() => {
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
-
   return (
-    <SafeAreaView style={AppStyle.safeArea} onLayout={onLayoutRootView}>
+    <SafeAreaView style={AppStyle.safeArea}>
       <NotesModal
         modalOpen={modalOpen}
         editId={editId}
