@@ -83,7 +83,7 @@ function NotesModal({
           id: `note${(Math.random() * 1000).toFixed(0)}`,
           title: title || 'Untitled',
           note,
-          date: format(new Date(), 'MMMM do, yyyy H:mma'),
+          date: format(new Date(), 'MMMM do, yyyy h:mma'),
         },
       ]);
     }

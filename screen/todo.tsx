@@ -70,7 +70,7 @@ function Todo() {
           id,
           todo,
           checked,
-          date: format(new Date(), 'MMMM do, yyyy H:mma'),
+          date: format(new Date(), 'MMMM do, yyyy h:mma'),
         };
       }
 

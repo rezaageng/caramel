@@ -70,7 +70,7 @@ function TodosModal({
         {
           id: `todo${(Math.random() * 1000).toFixed(0)}`,
           todo,
-          date: format(new Date(), 'MMMM do, yyyy H:mma'),
+          date: format(new Date(), 'MMMM do, yyyy h:mma'),
           checked: false,
         },
       ]);

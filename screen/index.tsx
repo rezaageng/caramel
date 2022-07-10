@@ -66,7 +66,7 @@ function Home() {
         id,
         title: title || 'Untitled',
         note,
-        date: format(new Date(), 'MMMM do, yyyy H:mma'),
+        date: format(new Date(), 'MMMM do, yyyy h:mma'),
       };
       return newNotes;
     });
